@@ -50,7 +50,11 @@ sekurlsa::logonpasswords</code>
 
 ### 5. Detected & Alerted in Splunk
 - I used this query to detect the execution: index=main "mimikatz"
-- I created a Splunk alert called **“Mimikatz Execution Detected”** to automatically trigger whenever such activity is logged.  
+- I created a Splunk alert called **“Mimikatz Execution Detected”** to automatically trigger whenever such activity is logged.
+### 🔹 Detection Rule Export
+I also saved the Splunk detection rule as a file so it can be reused:  
+[**detection-rule.spl**](detection-rule.spl)
+
 
 **Alert Configuration**  
 <img src="Screenshots/Alertssetting.png" alt="Alert Config" width="500">  
