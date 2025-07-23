@@ -1,0 +1,11 @@
+# Splunk Saved Search / Detection Rule
+# Title: Mimikatz Execution Detected
+# Description: Detects execution of Mimikatz based on process name or command-line arguments from Sysmon logs.
+
+| tstats summariesonly=false count FROM datamodel=Endpoint.Processes
+  WHERE Processes.process_name="mimikatz.exe"
+  OR Processes.process="*sekurlsa::logonpasswords*"
+BY _time Processes.dest Processes.user Processes.parent_process Processes.process
+
+# OR if not using Data Model (basic index search)
+index=main "*mimikatz*"
