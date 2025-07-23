@@ -1,59 +1,43 @@
 # 🔐 Blue Team Project: Detecting Mimikatz with Splunk + Sysmon
 
 ## 🎯 What This Project Is About
-This lab is all about **catching a credential dumping attack (Mimikatz)** using **Sysmon logs** and **Splunk**.  
-I wanted to simulate how a Blue Team would detect suspicious activity in a real environment.
+This lab simulates how a **Blue Team can detect credential dumping attacks** using **Sysmon** and **Splunk**.  
+I ran a real **Mimikatz attack** in a controlled Windows 10 VM and created a detection alert in Splunk.  
 
 ---
 
-## 🛠 What We Used
+## 🛠 Tools & Setup
 - **Windows 10 VM (VirtualBox)**
-- **Sysmon** (to collect detailed process and command-line logs)
-- **Splunk Free** (to ingest logs and create detection rules)
-- **Mimikatz** (attacker simulation)
+- **Sysmon** (with SwiftOnSecurity’s config)
+- **Splunk Free**
+- **Mimikatz (for simulation)**
 
 ---
 
-## ✅ What We Did (Step by Step)
-1. **Set up Windows 10 VM in VirtualBox**  
-   - Installed a clean Windows 10 and took a snapshot for safety.  
-   <!-- Screenshot: VirtualBox Windows running -->
+## ✅ What We Did
 
-2. **Installed Sysmon and Applied a Good Config**  
-   - Used SwiftOnSecurity’s community config to capture process creation, network connections, etc.  
-   - Verified logs in **Event Viewer → Sysmon Operational**.  
-   <!-- Screenshot: Sysmon logs in Event Viewer -->
-
-3. **Installed Splunk and Ingested Sysmon Logs**  
-   - Added `Microsoft-Windows-Sysmon/Operational` logs to Splunk.  
-   - Confirmed events were visible in Splunk search.  
-   <!-- Screenshot: Splunk showing Sysmon events -->
-
-4. **Simulated the Attack with Mimikatz**  
-   - Ran `privilege::debug` and `sekurlsa::logonpasswords` to mimic credential dumping.  
-   <!-- Screenshot: Mimikatz running in CMD -->
-
-5. **Detected the Attack in Splunk**  
-   - Searched for `*mimikatz*` in logs and confirmed multiple process creation events.  
-   - Created a Splunk alert called **“Mimikatz Execution Detected.”**  
-   <!-- Screenshot: Splunk search results -->
-   <!-- Screenshot: Splunk alert configuration -->
+### 1. Set up Windows 10 VM
+Created a fresh Windows 10 VM on VirtualBox.  
+![Windows VM](screenshots/Windows.png)  
+(Optional initial setup screenshot)  
+![Windows Setup](screenshots/Winsetup.png)
 
 ---
 
-## 🔍 What We Learned
-- **Sysmon is great** for collecting rich process execution logs that Windows Event Logs normally miss.
-- **Mimikatz activity is noisy** — it can easily be caught if you monitor process names and suspicious command lines.
-- **Splunk makes detection easier** by allowing custom alerts, even in small lab setups.
+### 2. Installed Sysmon and Verified Logs
+- Installed Sysmon with community config to log process creation and command-line activity.  
+- Confirmed logs in Event Viewer under **Sysmon → Operational**.  
+![Sysmon Installation](screenshots/Sysmon.png)  
+![Sysmon Event Viewer](screenshots/sysmonevent.png)
 
 ---
 
-## 🚀 What’s Next
-- Add more detections for **LSASS memory access** or **network beacons**.  
-- Build a small dashboard in Splunk for live monitoring.
+### 3. Installed Splunk and Ingested Sysmon Logs
+- Installed Splunk and added the Sysmon Operational logs.  
+- Confirmed logs are streaming into Splunk.  
+![Splunk Sysmon Events](screenshots/events.png)
 
 ---
 
-## 📬 **Kishan Patel**  
-- [LinkedIn](https://linkedin.com/in/kishnpatel)  
-- [Portfolio](https://kishxnpatel.com)
+### 4. Simulated an Attack with Mimikatz
+- Ran the following commands inside the Windows VM:
