@@ -54,7 +54,6 @@ I wanted to simulate how a Blue Team would detect suspicious activity in a real 
 
 ---
 
-## 📬 Author
-**Kishan Patel**  
+## 📬 **Kishan Patel**  
 - [LinkedIn](https://linkedin.com/in/kishnpatel)  
 - [Portfolio](https://kishxnpatel.com)
